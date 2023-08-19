@@ -23,6 +23,18 @@
  *                  password:
  *                      type: string
  *                      description: the user password for signup
+ *          Login:
+ *              type: object
+ *              required:
+ *                  -   email
+ *                  -   password
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: the user email for login
+ *                  password:
+ *                      type: string
+ *                      description: the user password for login
  */
 
 /**
@@ -48,6 +60,33 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/SignUp'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /user/login:
+ *      post:
+ *          tags: [User-Authentication]
+ *          summary: login user in userpanel
+ *          description: login user in userpanel
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Login'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Login'
  *          responses:
  *              201: 
  *                  description: Success
