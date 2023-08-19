@@ -5,7 +5,8 @@ const {
   RandomNumber,
   sendCode,
   AccessToken,
-  RefreshToken
+  RefreshToken,
+  verifyRefreshToken
 } = require('../../../utils/function')
 const {
   singUpSchema,
@@ -115,6 +116,24 @@ class UserAuthController extends Controller {
       next(error)
     }
   }
+  async refresh (req, res, next){
+    try {
+        const { refreshToken } = req.body
+        const mobile = await verifyRefreshToken(refreshToken)
+        const user = await UserModel.findOne({mobile})
+        const access = await AccessToken(user._id)
+        const refresh = await RefreshToken(user._id)
+        return res.json({
+            statusCode: HttpStatus.OK,
+            data: {
+                access,
+                refresh
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 }
 
 module.exports = {

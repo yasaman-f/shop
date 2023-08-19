@@ -55,6 +55,14 @@
  *                  code:
  *                      type: string
  *                      description: the user otp for login
+ *          Refresh:
+ *              type: object
+ *              required:
+ *                  -   refreshToken
+ *              properties:
+ *                  refreshToken:
+ *                      type: string
+ *                      description: the user email for login
  */
 
 /**
@@ -161,6 +169,33 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/CheckOtp'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /user/refresh-token:
+ *      post:
+ *          tags: [User-Authentication]
+ *          summary: refresh token
+ *          description: refresh token for when expire access token
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Refresh'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Refresh'
  *          responses:
  *              201: 
  *                  description: Success

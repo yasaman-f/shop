@@ -4,6 +4,7 @@ const { SECRET_KEY, REFRESH_KEY } = require('../../note');
 const jwt = require("jsonwebtoken");
 const { UserModel } = require('../models/user');
 const redis = require("./initRedis")
+const Error = require("http-errors")
 
 
 function hashPassword(pass) {
@@ -19,7 +20,6 @@ function verifyPassword(pass, hashPassword) {
     const newHash = `$2.${salt}.${hash}`
     return (newHash === hashPassword) 
 }
-
 
 function sendCode(email, code) {
     var transporter = nodemailer.createTransport({
@@ -84,11 +84,31 @@ function RefreshToken(Id) {
     })
 }
 
+function verifyRefreshToken(token) {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, REFRESH_KEY, async (err, payload) => {
+            if (err) reject(Error.Unauthorized("please login ...!"))
+            const { mobile } = payload || {}
+
+            const user = await UserModel.findOne({ mobile }, { password: 0, otp: 0 })
+            if (!user) reject(Error.Unauthorized("User is not found"))
+
+            const refreshToken = await redis.get(String(user?._id))
+            if (!refreshToken) reject(Error.Unauthorized("Failed to reLogin to the user account"))
+
+            if (token === refreshToken) return resolve(mobile)
+            reject(Error.Unauthorized("Failed to reLogin to the user account"))
+
+        })
+    })
+}
+
 module.exports = {
     hashPassword,
     verifyPassword,
     sendCode,
     RandomNumber,
     AccessToken,
-    RefreshToken
+    RefreshToken,
+    verifyRefreshToken
 }
