@@ -1,4 +1,3 @@
-
 /**
  * @swagger
  *  components:
@@ -35,6 +34,15 @@
  *                  password:
  *                      type: string
  *                      description: the user password for login
+ *
+ *          Forget:
+ *              type: object
+ *              required:
+ *                  -   email
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: the user email for getOtp
  */
 
 /**
@@ -87,6 +95,33 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/Login'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /user/forget:
+ *      post:
+ *          tags: [User-Authentication]
+ *          summary: getOtp code
+ *          description: send otpCode for user
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Forget'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Forget'
  *          responses:
  *              201: 
  *                  description: Success
