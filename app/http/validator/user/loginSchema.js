@@ -13,11 +13,12 @@ const loginSchema = joi.object({
 })
 
 const forgetPasswordSchema = joi.object({
-    email: joi.string().lowercase().trim().email().required().error(new Error("The email is incorrect")),
+    email: joi.string().lowercase().trim().email().required().error(new Error("The email is incorrect"))
 })
 
 const checkOtpSchema = joi.object({
-    code: joi.number().min(4).max(6).error(new Error("The entered code is incorrect"))
+    code: joi.string().min(4).max(6).error(new Error("The entered code is incorrect")),
+    email: joi.string().lowercase().trim().email().required().error(new Error("The email is incorrect")),
 })
 
 module.exports = {

@@ -8,7 +8,7 @@ const user = new mongoose.Schema(
     mobile: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String },
-    otp: { type: Object, default: { code: 0, expire: 0 } },
+    otp: { type: Object, default: { code: 0, expire: 0 }},
     bills: { type: [], default: [] },
     discount: { type: Number, default: 0 },
     roles: { type: [String], default: ['USER'] }

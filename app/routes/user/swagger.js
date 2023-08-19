@@ -43,6 +43,18 @@
  *                  email:
  *                      type: string
  *                      description: the user email for getOtp
+ *          CheckOtp:
+ *              type: object
+ *              required:
+ *                  -   email
+ *                  -   code
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: the user email for login
+ *                  code:
+ *                      type: string
+ *                      description: the user otp for login
  */
 
 /**
@@ -122,6 +134,33 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/Forget'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /user/checkOtp:
+ *      post:
+ *          tags: [User-Authentication]
+ *          summary: checkOtp code
+ *          description: check otp Code for login
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CheckOtp'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CheckOtp'
  *          responses:
  *              201: 
  *                  description: Success
