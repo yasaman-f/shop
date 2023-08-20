@@ -45,7 +45,11 @@ module.exports = class Aplication{
                 },
                 servers: [
                     {
-                        url: "http://localhost:5000"
+                        url: "http://localhost:5000",
+                        
+                    },
+                    {
+                        url: "https://vibrant-neumann-rgizwzjbh.iran.liara.run"
                     }
                 ],
             components : {
