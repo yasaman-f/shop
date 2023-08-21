@@ -1,9 +1,4 @@
-/**
- * @swagger
- * tags:
- *  name: HomePage
- *  description: Showing products to normal users
- */
+
 /**
  * @swagger
  * tag: HomePage

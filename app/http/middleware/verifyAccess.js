@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 const Error = require("http-errors")
-const { UserModel } = require("../../models/users")
+const { UserModel } = require("../../models/user")
 const { SECRET_KEY } = require("../../../note")
 
 function getToken(params) {
@@ -11,6 +11,7 @@ function getToken(params) {
 
 function verifyToken(req, res, next){
     try{ 
+    if (req.headers.authorization == undefined) throw Error.BadRequest("Please login/signUp first")
     const token = getToken(req.headers)
     jwt.verify(token, SECRET_KEY, async (err, payload) => {
     try{

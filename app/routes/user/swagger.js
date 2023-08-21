@@ -65,12 +65,7 @@
  *                      description: the user email for login
  */
 
-/**
- * @swagger
- *  tags:
- *      name : User-Authentication
- *      description : user-auth section
- */
+
 
 /**
  * @swagger
