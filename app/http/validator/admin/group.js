@@ -5,6 +5,7 @@ const groupSchema = joi.object({
     description: joi.string().error(new Error("The description is incorrect"))
 })
 
+
 module.exports = {
-    groupSchema
+    groupSchema,
 }

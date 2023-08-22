@@ -103,6 +103,15 @@ function verifyRefreshToken(token) {
     })
 }
 
+function RemoveExcessData(data, excessData, fixedData = []){
+    Object.keys(data).forEach(key => {
+        if(fixedData.includes(key)) delete data[key]
+        if(typeof data[key] == "string") data[key] = data[key].trim();
+        if(Array.isArray(data[key]) && data[key].length > 0 ) data[key] = data[key].map(item => item.trim()) 
+        if(excessData.includes(data[key])) delete data[key];
+    })
+}
+
 module.exports = {
     hashPassword,
     verifyPassword,
@@ -110,5 +119,6 @@ module.exports = {
     RandomNumber,
     AccessToken,
     RefreshToken,
-    verifyRefreshToken
+    verifyRefreshToken,
+    RemoveExcessData
 }

@@ -14,6 +14,15 @@
  *                  description:
  *                      type: string
  *                      description: the description for add grouping
+ *          Edit:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of group
+ *                  description:
+ *                      type: string
+ *                      description: the description of group
  */
 
 
@@ -62,4 +71,28 @@
  *                  description: Unauthorization
  *              500: 
  *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /group/edit/{id}:
+ *      patch:
+ *          tags: [Grouping-Product]
+ *          summary: update group by id 
+ *          consumes: 
+ *              -   multipart/form-data
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: id
+ *                  type: string
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Edit'
+ *          responses:
+ *              200:
+ *                  description: success
  */
