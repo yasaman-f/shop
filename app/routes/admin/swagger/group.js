@@ -96,3 +96,21 @@
  *              200:
  *                  description: success
  */
+
+/**
+ * @swagger
+ *  /group/remove/{id}:
+ *      delete:
+ *          tags: [Grouping-Product]
+ *          summary: delete group by id 
+ *          consumes: 
+ *              -   multipart/form-data
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: id
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: success
+ */
