@@ -7,5 +7,5 @@ const groupSchema = joi.object({
 
 
 module.exports = {
-    groupSchema,
+    groupSchema
 }

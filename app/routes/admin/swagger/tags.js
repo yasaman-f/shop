@@ -18,3 +18,10 @@
  *      name : Grouping-Product
  *      description : Only admin has access to this section
  */
+
+/**
+ * @swagger
+ *  tags:
+ *      name : Product
+ *      description : In this section, you can add, get, update, delete products
+ */

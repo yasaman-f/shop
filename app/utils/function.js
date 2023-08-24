@@ -112,6 +112,25 @@ function RemoveExcessData(data, excessData, fixedData = []){
     })
 }
 
+function putArrayOfImage(files, fileUploadPath) {
+    if (files?.length > 0) {
+        return ((files.map(file => path.join(fileUploadPath, file.filename))).map(item => item.replace(/\\/g, "/")))
+    } else {
+        return []
+    }
+}
+
+function setFeture(body) {
+    const { colors, width, height, length, weight } = body;
+    let feture = {};
+    feture.colors = colors;
+    if (+width) feture.width = +width;
+    if (+height) feture.width = +height;
+    if (+length) feture.width = +length;
+    if (+weight) feture.width = +weight;
+    return feture
+}
+
 module.exports = {
     hashPassword,
     verifyPassword,
@@ -120,5 +139,7 @@ module.exports = {
     AccessToken,
     RefreshToken,
     verifyRefreshToken,
-    RemoveExcessData
+    RemoveExcessData,
+    putArrayOfImage,
+    setFeture
 }

@@ -10,11 +10,11 @@ class GroupController extends Controller {
     try {
       const userID = req.user._id
       await groupSchema.validateAsync(req.body)
-      if (await this.findGroup({title}))
-        throw Error.BadRequest('Grouping already exists')
-      const { title, description } = req.body
-      const group = GroupModel.create({ title, description, userID })
-      await this.findGroup({title})
+      const {title, description} = req.body
+      const group = await GroupModel.findOne({title})
+      if (group) throw Error.BadRequest('Grouping already exists')
+      const Group = GroupModel.create({ title, description, userID })
+      await this.findGroup(title)
       return res.status(HttpStatus.OK).json({
         StatusCode: HttpStatus.OK,
         data: {
@@ -41,7 +41,6 @@ class GroupController extends Controller {
   async editGroup (req, res, next) {
     try {
       const { id } = req.params
-      await this.findGroup({ _id: id })
       const extraData = ['', ' ', 0, null, undefined, NaN]
       const data = req.body
       RemoveExcessData(data, extraData)
@@ -61,6 +60,8 @@ class GroupController extends Controller {
   async removeGroup (req, res, next) {
     try {
       const { id } = req.params
+      const group = await GroupModel.findOne({_id: id})
+      if (!group) throw Error.NotFound('Group not found')
       const remove = await GroupModel.deleteOne({_id: id})
       if(!remove.deletedCount) throw Error.InternalServerError("The group was not deleted")
       return res.status(HttpStatus.OK).json({
@@ -74,7 +75,7 @@ class GroupController extends Controller {
     }
   }
   async findGroup (title) {
-    const group = GroupModel.findOne(title)
+    const group = await GroupModel.findOne({title})
     if (!group) throw Error.NotFound('Group not found')
   }
 }

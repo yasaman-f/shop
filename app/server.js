@@ -49,7 +49,7 @@ module.exports = class Aplication{
                         
                     },
                     {
-                        url: "https://vibrant-neumann-rgizwzjbh.iran.liara.run"
+                        url: "https://pedantic-lalande-unpa9mkfy.iran.liara.run"
                     }
                 ],
             components : {

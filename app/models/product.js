@@ -1,4 +1,5 @@
 const { default: mongoose } = require('mongoose')
+const { CommentSchema } = require('./comment')
 
 const product = new mongoose.Schema(
   {
@@ -7,14 +8,14 @@ const product = new mongoose.Schema(
   longDescription: {type: String, required: true},
   images: {type: [String], required: true},
   group: {type:  mongoose.Types.ObjectId, ref: "group", required: true},
-  comments: {type: [CommentSchema], required: true},
+  comments: {type: [CommentSchema], default: []},
   like: {type: [ mongoose.Types.ObjectId], default: []},
   deslike: {type: [ mongoose.Types.ObjectId], default: []},
   price: {type: Number, default: 0},
   discount: {type: Number, default: 0},
   count: {type: Number},
   uploader: {type: mongoose.Types.ObjectId, required: true},
-  feture: {type: Object, default:{
+  feature: {type: Object, default:{
       length: "",
       height: "",
       width: "",
@@ -31,7 +32,7 @@ const product = new mongoose.Schema(
   }
 )
 
-user.index({
+product.index({
   title: 'text',
   group: 'text',
   uploader: 'text',
