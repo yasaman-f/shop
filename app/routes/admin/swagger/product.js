@@ -149,7 +149,6 @@
  *                      
  */
 
-
 /**
  * @swagger
  *  /product/add:
@@ -199,6 +198,22 @@
  *                  name: id
  *                  type: string
  *                  description: id for get product
+ *          responses:
+ *              200:
+ *                  description: success
+ */
+
+/**
+ * @swagger
+ *  /product/{uploader}:
+ *      get:
+ *          tags: [Product]
+ *          summary: get products by uploader
+ *          parameters:
+ *              -   in: path
+ *                  name: uploader
+ *                  type: string
+ *                  description: user id for get product
  *          responses:
  *              200:
  *                  description: success
