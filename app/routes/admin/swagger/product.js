@@ -221,6 +221,22 @@
 
 /**
  * @swagger
+ *  /product/{group}:
+ *      get:
+ *          tags: [Product]
+ *          summary: get products by group
+ *          parameters:
+ *              -   in: path
+ *                  name: group
+ *                  type: string
+ *                  description: group id for get product
+ *          responses:
+ *              200:
+ *                  description: success
+ */
+
+/**
+ * @swagger
  *  /admin/products/{id}:
  *      get:
  *          tags: [Product(AdminPanel)]

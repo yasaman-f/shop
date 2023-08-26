@@ -7,7 +7,7 @@ const {
   putArrayOfImage,
   setFeture
 } = require('../../../utils/function')
-const { productSchema, findById, findByUserId } = require('../../validator/admin/product')
+const { productSchema, findById, findByUserId, findByGroup } = require('../../validator/admin/product')
 const { ProductModel } = require('../../../models/product')
 const { stringToArray } = require('../../middleware/stringToArray')
 
@@ -92,6 +92,21 @@ class ProductController extends Controller {
         const {uploader} = req.params
         await findByUserId.validateAsync({uploader})
         const find = await ProductModel.find({uploader})
+        if(!find) throw Error.NotFound("No product found")
+        return res.status(HttpStatus.OK).json({
+            StatusCode: HttpStatus.OK,
+            data: {
+              find
+            }})
+    } catch (error) {
+        next(error)
+    }
+  }
+  async getProductByGroup (req, res, next){
+    try {
+        const {group} = req.params
+        await findByGroup.validateAsync({group})
+        const find = await ProductModel.find({group})
         if(!find) throw Error.NotFound("No product found")
         return res.status(HttpStatus.OK).json({
             StatusCode: HttpStatus.OK,
