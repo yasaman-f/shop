@@ -26,13 +26,30 @@ class ProductController extends Controller {
             const create = await ProductModel.create(data)
             
             return res.status(HttpStatus.CREATED).json({
+                StatusCode: HttpStatus.CREATED,
                 data: {
-                    create
+                    message: "The product was created successfully"
                 } 
             })
 
         } catch (error) {
             console.log(error);
+            next(error)
+        }
+    }
+    async getProduct (req, res, next){
+        try {
+            const {search} = req.query
+            const dataBase = {};
+            if(search) dataBase['$text'] = {$search: search}
+            const product = await ProductModel.find(dataBase)
+            return res.status(HttpStatus.OK).json({
+                StatusCode: HttpStatus.OK,
+                data: {
+                    product
+                } 
+            })
+        } catch (error) {
             next(error)
         }
     }

@@ -46,7 +46,7 @@
  *                  group:
  *                      type: string
  *                      description: the title of product
- *                      example: 64e0f5765ebb60bb50fe285f
+ *                      example: 64e5034202ee88b102b061b2
  *                  price:
  *                      type: string
  *                      description: the title of product
@@ -174,19 +174,20 @@
 
 /**
  * @swagger
- *  /admin/products/list:
+ *  /product/all:
  *      get:
- *          tags: [Product(AdminPanel)]
+ *          tags: [Product]
  *          summary: get all products
  *          parameters:
  *              -   in: query
  *                  name: search
  *                  type: string
- *                  description: text for search in title, text, short_text of (product)
+ *                  description: text for search in title of product
  *          responses:
  *              200:
  *                  description: success
  */
+
 /**
  * @swagger
  *  /admin/products/{id}:

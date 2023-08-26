@@ -34,8 +34,6 @@ const product = new mongoose.Schema(
 
 product.index({
   title: 'text',
-  group: 'text',
-  uploader: 'text',
 })
 
 const ProductModel = mongoose.model('product', product)
