@@ -1,21 +1,16 @@
 function stringToArray (field) {
-    return function (req, res, next) {
-        if (req.body[field]) {
-            if (typeof req.body[field] == "string") {
-                if (req.body[field].indexOf(",") >= 0) {
-                    req.body[field] = (req.body[field].split("#")).map(item => item.trim())
-                } else {
-                    req.body[field] = [req.body[field]]
-                }
-            } else if (Array.isArray(req.body[field])){
-                req.body[field] = req.body[field].map(item => item.trim())
-                req.body[field] = [... new Set(req.body[field])]
+        if (typeof field == "string") {
+            if (field.indexOf(",") >= 0) {
+                field = ((field).split(",")).map(item => item.trim())
+                return field
+            } else {
+                field = [field]
+                return field
             }
-        } else {
-            req.body[field] = []
+        } else if (Array.isArray(field)){
+            field = field.map(item => item.trim())
+            field = [... new Set(field)]
         }
-        next()
-    }
 }
 
 module.exports = {

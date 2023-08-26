@@ -4,7 +4,7 @@ const { uploadImage } = require("../../utils/multer")
 
 const router = require("express").Router()
 
-router.post("/add", verifyToken, uploadImage.single("images"),ProductController.addProduct)
+router.post("/add", verifyToken, uploadImage.array("images", 10),ProductController.addProduct)
 
 module.exports = {
     ProductRoutes: router

@@ -4,7 +4,10 @@ const { SECRET_KEY, REFRESH_KEY } = require('../../note');
 const jwt = require("jsonwebtoken");
 const { UserModel } = require('../models/user');
 const redis = require("./initRedis")
-const Error = require("http-errors")
+const Error = require("http-errors");
+const { stringToArray } = require('../http/middleware/stringToArray');
+const path = require('path')
+
 
 
 function hashPassword(pass) {
@@ -121,14 +124,15 @@ function putArrayOfImage(files, fileUploadPath) {
 }
 
 function setFeture(body) {
-    const { colors, width, height, length, weight } = body;
-    let feture = {};
-    feture.colors = colors;
-    if (+width) feture.width = +width;
-    if (+height) feture.width = +height;
-    if (+length) feture.width = +length;
-    if (+weight) feture.width = +weight;
-    return feture
+    let { colors, width, height, length, weight } = body;
+    let feature = {};
+    colors = stringToArray(colors);
+    feature.colors = colors
+    if (+width) feature.width = +width;
+    if (+height) feature.height = +height;
+    if (+length) feature.length = +length;
+    if (+weight) feature.weight = +weight;
+    return feature
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ const multer = require("multer")
 const path = require("path")
 const fs = require("fs")
 
-function makeAddress(file) {
+function makeAddress(req) {
     const date = new Date()
     const year = date.getFullYear().toString()
     const month = date.getMonth().toString()
@@ -18,8 +18,8 @@ function makeAddress(file) {
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       if (file?.originalname) {
-        const fileUploadPath = makeAddress(req);
-        return cb(null, fileUploadPath);
+        const filePath = makeAddress(req);
+        return cb(null, filePath);
       }
       cb(null, null);
     },
