@@ -190,6 +190,22 @@
 
 /**
  * @swagger
+ *  /product/{id}:
+ *      get:
+ *          tags: [Product]
+ *          summary: get products by id
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  description: id for get product
+ *          responses:
+ *              200:
+ *                  description: success
+ */
+
+/**
+ * @swagger
  *  /admin/products/{id}:
  *      get:
  *          tags: [Product(AdminPanel)]

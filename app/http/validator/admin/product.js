@@ -21,6 +21,21 @@ const productSchema = joi.object({
     images : joi.allow(),
 })
 
+const findById = joi.object({
+    id: joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i).error(Error.BadRequest("The id is incorrect")),
+})
+
+const findByUserId = joi.object({
+    uploader: joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i).error(Error.BadRequest("The uploader is incorrect")),
+})
+
+const findByGroup = joi.object({
+    group: joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i).error(Error.BadRequest("The group is incorrect")),
+})
+
 module.exports = {
-    productSchema
+    productSchema,
+    findById,
+    findByUserId,
+    findByGroup
 }

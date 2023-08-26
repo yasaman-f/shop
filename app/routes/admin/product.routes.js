@@ -6,6 +6,7 @@ const router = require("express").Router()
 
 router.post("/add", verifyToken, uploadImage.array("images", 10),ProductController.addProduct)
 router.get("/all", ProductController.getProduct)
+router.get("/:id", ProductController.getProductById)
 
 module.exports = {
     ProductRoutes: router
