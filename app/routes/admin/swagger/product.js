@@ -248,7 +248,7 @@
 
 /**
  * @swagger
- *  /product/remove/{id}:
+ *  /product/{id}:
  *      delete:
  *          tags: [Product]
  *          summary: delete One products

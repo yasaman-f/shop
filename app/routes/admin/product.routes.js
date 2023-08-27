@@ -10,6 +10,7 @@ router.get("/:group", ProductController.getProductByGroup)
 router.get("/:uploader", verifyToken, ProductController.getProductByUserId)
 router.get("/:id", ProductController.getProductById)
 router.patch("/:id", verifyToken, uploadImage.array("images", 10), ProductController.editProduct)
+router.delete("/:id", verifyToken,  ProductController.removeProduct)
 
 module.exports = {
     ProductRoutes: router

@@ -131,8 +131,23 @@ class ProductController extends Controller {
         return res.status(HttpStatus.OK).json({
             StatusCode: HttpStatus.OK,
             data: {
-                update
-            //   message: 'The product was update successfully'
+              message: 'The product was update successfully'
+            }})
+    } catch (error) {
+        next(error)
+    }
+  }
+  async removeProduct (req, res, next){
+    try {
+        const { id } = req.params
+        const product = await ProductModel.findOne({_id: id})
+        if(!product) throw Error.NotFound("This product ID was not found")
+        const Delete = await ProductModel.deleteOne({_id: id})
+        if(!Delete.deletedCount) throw Error.InternalServerError("Product removal was successful")
+        return res.status(HttpStatus.OK).json({
+            StatusCode: HttpStatus.OK,
+            data: {
+              message: 'The product was delete successfully'
             }})
     } catch (error) {
         next(error)
