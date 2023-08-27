@@ -91,34 +91,25 @@
  *                  title:
  *                      type: string
  *                      description: the title of product
- *                      example: عنوان محصول
- *                  short_text:
+ *                  shortDescription:
  *                      type: string
  *                      description: the title of product
- *                      example: متن کوتاه شده تستی
- *                  text:
+ *                  longDescription:
  *                      type: string
  *                      description: the title of product
- *                      example: متن بلد تستی
- *                  tags:
- *                      type: array
- *                      description: the title of product
- *                  category:
+ *                  group:
  *                      type: string
  *                      description: the title of product
- *                      example: 6279e994c1e47a98d0f356d3
+ *                      example: 64e5034202ee88b102b061b2
  *                  price:
  *                      type: string
  *                      description: the title of product
- *                      example: 2500000
  *                  discount:
  *                      type: string
  *                      description: the title of product
- *                      example: 20
  *                  count:
  *                      type: string
  *                      description: the title of product
- *                      example: 100
  *                  images:
  *                      type: array
  *                      items:
@@ -127,23 +118,15 @@
  *                  height:
  *                      type: string
  *                      description: the height of product packet
- *                      example: 0
  *                  weight:
  *                      type: string
  *                      description: the weight of product packet
- *                      example: 0
  *                  width:
  *                      type: string
  *                      description: the with of product packet
- *                      example: 0
  *                  length:
  *                      type: string
  *                      description: the length of product packet
- *                      example: 0
- *                  type:
- *                      type: string
- *                      description: the type of product 
- *                      example: virtual - physical
  *                  colors:
  *                      $ref: '#/components/schemas/Color'
  *                      
@@ -237,44 +220,10 @@
 
 /**
  * @swagger
- *  /admin/products/{id}:
- *      get:
- *          tags: [Product(AdminPanel)]
- *          summary: get one products
- *          parameters:
- *              -   in: path
- *                  name: id
- *                  type: string
- *                  description: objectId of product
- *          responses:
- *              200:
- *                  description: success
- */
-/**
- * @swagger
- *  /admin/products/remove/{id}:
- *      delete:
- *          tags: [Product(AdminPanel)]
- *          summary: delete One products
- *          parameters:
- *              -   in: path
- *                  name: id
- *                  type: string
- *                  description: objectId of product
- *          responses:
- *              200:
- *                  description: success
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/definitions/publicDefinition'
- */
-/**
- * @swagger
- *  /admin/products/edit/{id}:
+ *  /product/{id}:
  *      patch:
- *          tags: [Product(AdminPanel)]
- *          summary: create and save product
+ *          tags: [Product]
+ *          summary: update product
  *          parameters:
  *              -   in: path
  *                  name: id
@@ -291,6 +240,26 @@
  *          responses:
  *              200:
  *                  description: updated Product
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Edit-Product'
+ */
+
+/**
+ * @swagger
+ *  /product/remove/{id}:
+ *      delete:
+ *          tags: [Product]
+ *          summary: delete One products
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  description: objectId of product
+ *          responses:
+ *              200:
+ *                  description: success
  *                  content:
  *                      application/json:
  *                          schema:

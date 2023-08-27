@@ -106,13 +106,18 @@ function verifyRefreshToken(token) {
     })
 }
 
-function RemoveExcessData(data, excessData, fixedData = []){
+function RemoveExcessData(data, fixedData = []){
+    let emptyData = [{}, [], "", " ", "0", 0, null, undefined]
     Object.keys(data).forEach(key => {
-        if(fixedData.includes(key)) delete data[key]
-        if(typeof data[key] == "string") data[key] = data[key].trim();
-        if(Array.isArray(data[key]) && data[key].length > 0 ) data[key] = data[key].map(item => item.trim()) 
-        if(excessData.includes(data[key])) delete data[key];
+        if (fixedData.includes(key)) delete data[key]
+        if (key == {}) delete data[key]
+        if (typeof data[key] == "string") data[key] = data[key].trim();
+        if (Array.isArray(data[key]) && data[key].length > 0) data[key] = data[key].map(item => item.trim())
+        if (Array.isArray(data[key]) && data[key].length == 0) delete data[key]
+        if (emptyData.includes(data[key])) delete data[key];
+        
     })
+    return data
 }
 
 function putArrayOfImage(files, fileUploadPath) {
@@ -125,14 +130,18 @@ function putArrayOfImage(files, fileUploadPath) {
 
 function setFeture(body) {
     let { colors, width, height, length, weight } = body;
-    let feature = {};
-    colors = stringToArray(colors);
-    feature.colors = colors
-    if (+width) feature.width = +width;
-    if (+height) feature.height = +height;
-    if (+length) feature.length = +length;
-    if (+weight) feature.weight = +weight;
-    return feature
+    if(colors != ''|| width != ''|| height != ''|| length != ''|| weight != ''){
+        let feature = {};
+        if (colors != '' && colors != undefined){ 
+            colors = stringToArray(colors);
+            feature.colors = colors
+        }
+        if (+width) feature.width = +width;
+        if (+height) feature.height = +height;
+        if (+length) feature.length = +length;
+        if (+weight) feature.weight = +weight;
+        return feature
+    }
 }
 
 module.exports = {
@@ -145,5 +154,5 @@ module.exports = {
     verifyRefreshToken,
     RemoveExcessData,
     putArrayOfImage,
-    setFeture
+    setFeture,
 }

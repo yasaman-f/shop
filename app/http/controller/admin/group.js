@@ -43,7 +43,7 @@ class GroupController extends Controller {
       const { id } = req.params
       const extraData = ['', ' ', 0, null, undefined, NaN]
       const data = req.body
-      RemoveExcessData(data, extraData)
+      RemoveExcessData(data)
       const update = await GroupModel.updateOne({ _id: id }, { $set: data })
       if (!update.modifiedCount)
         throw Error.InternalServerError('The grouping was not edited')

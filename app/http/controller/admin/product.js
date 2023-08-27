@@ -39,7 +39,7 @@ class ProductController extends Controller {
       data.feature = setFeture(req.body)
       data.uploader = req.user._id
       data.images = images
-      RemoveExcessData(data, extraData)
+      RemoveExcessData(data)
 
       const product = await ProductModel.findOne({ title })
       if (product) throw Error.BadRequest('You have already added the product')
@@ -112,6 +112,27 @@ class ProductController extends Controller {
             StatusCode: HttpStatus.OK,
             data: {
               find
+            }})
+    } catch (error) {
+        next(error)
+    }
+  }
+  async editProduct (req, res, next){
+    try {
+        const { id } = req.params
+        const product = await ProductModel.findOne({_id : id})
+        let data = req.body
+        data.images = putArrayOfImage(req?.files || [], req.body.fileUploadPath)
+        data.feature = setFeture(req.body)
+        const BlackList = ["comments", "like", "deslike"]
+        data = RemoveExcessData(data, BlackList)
+        const update = await ProductModel.updateOne({_id: product._id}, {$set: data})
+        if(update.modifiedCount == 0 ) throw Error.NotFound("Update failed")
+        return res.status(HttpStatus.OK).json({
+            StatusCode: HttpStatus.OK,
+            data: {
+                update
+            //   message: 'The product was update successfully'
             }})
     } catch (error) {
         next(error)
