@@ -53,7 +53,6 @@ function RandomNumber() {
     return Math.floor((Math.random() * 90000) + 10000)
 }
 
-
 function AccessToken(Id) {
     return new Promise(async (resolve, reject) => {
         const user = await UserModel.findById(Id)
@@ -122,7 +121,15 @@ function RemoveExcessData(data, fixedData = []){
 
 function putArrayOfImage(files, fileUploadPath) {
     if (files?.length > 0) {
-        return ((files.map(file => path.join(fileUploadPath, file.filename))).map(item => item.replace(/\\/g, "/")))
+        const images = []
+        let image = (files.map(file => path.join(fileUploadPath, file.filename))).map(item => item.replace(/\\/g, "/"))
+        image.forEach(key => {
+            image = `http://localhost:5000/${key}` 
+            images.push(image)
+        })
+        return images
+ 
+        
     } else {
         return []
     }
@@ -144,6 +151,18 @@ function setFeture(body) {
     }
 }
 
+function checkColor(colors, listOfColor) {
+    const Color = []
+    colors.forEach(color => {
+        if (!(listOfColor.includes(color))){ 
+            return Error.BadRequest("Unfortunately we don't have this color of this product")
+        } else {
+            Color.push(color)
+        }
+    })
+    return Color
+}
+
 module.exports = {
     hashPassword,
     verifyPassword,
@@ -155,4 +174,5 @@ module.exports = {
     RemoveExcessData,
     putArrayOfImage,
     setFeture,
+    checkColor
 }

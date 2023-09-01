@@ -25,3 +25,10 @@
  *      name : Product
  *      description : In this section, you can add, get, update, delete products
  */
+
+/**
+ * @swagger
+ *  tags:
+ *      name : Cart
+ *      description : This part is for adding, editing, geting, removing products from the shopping cart
+ */

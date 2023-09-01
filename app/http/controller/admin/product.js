@@ -122,7 +122,8 @@ class ProductController extends Controller {
         const { id } = req.params
         const product = await ProductModel.findOne({_id : id})
         let data = req.body
-        data.images = putArrayOfImage(req?.files || [], req.body.fileUploadPath)
+        const images = putArrayOfImage(req?.files || [], req.body.fileUploadPath)
+        data.images = images
         data.feature = setFeture(req.body)
         const BlackList = ["comments", "like", "deslike"]
         data = RemoveExcessData(data, BlackList)
