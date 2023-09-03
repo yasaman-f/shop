@@ -61,3 +61,21 @@
  *                          schema:
  *                              $ref: '#/components/schemas/AddCart'
  */
+
+/**
+ * @swagger
+ *  /basket/getBasket/{userID}:
+ *      get:
+ *          tags: [Cart]
+ *          summary: delete group by id 
+ *          consumes: 
+ *              -   multipart/form-data
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: userID
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: success
+ */

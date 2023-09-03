@@ -6,7 +6,9 @@ const { UserModel } = require('../models/user');
 const redis = require("./initRedis")
 const Error = require("http-errors");
 const { stringToArray } = require('../http/middleware/stringToArray');
-const path = require('path')
+const path = require('path');
+const { ProductModel } = require('../models/product');
+const { Promise } = require('mongoose');
 
 
 
@@ -174,5 +176,5 @@ module.exports = {
     RemoveExcessData,
     putArrayOfImage,
     setFeture,
-    checkColor
+    checkColor,
 }
