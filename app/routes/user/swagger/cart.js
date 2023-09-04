@@ -81,7 +81,7 @@
  *  /basket/getBasket/{userID}:
  *      get:
  *          tags: [Cart]
- *          summary: delete group by id 
+ *          summary: update cart by id 
  *          consumes: 
  *              -   multipart/form-data
  *          parameters:
@@ -119,4 +119,22 @@
  *                      application/json:
  *                          schema:
  *                              $ref: '#/components/schemas/EditCart'
+ */
+
+/**
+ * @swagger
+ *  /basket/remove/{id}:
+ *      delete:
+ *          tags: [Cart]
+ *          summary: delete product of cart by id 
+ *          consumes: 
+ *              -   multipart/form-data
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: id
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: success
  */

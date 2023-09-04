@@ -91,6 +91,22 @@ class CartController extends Controller {
       next(error)
     }
   }
+  async removeCart (req, res, next){
+    try {
+      const { id } = req.params
+      const cart = await CartModel.findOne({_id: id})
+      if (!cart) throw Error.NotFound("This product was not found in your shopping cart")
+      const Delete = await CartModel.deleteOne({_id: id})
+        if(!Delete.deletedCount) throw Error.InternalServerError("Removing this product from the shopping cart was not successful")
+        return res.status(HttpStatus.OK).json({
+            StatusCode: HttpStatus.OK,
+            data: {
+              message: 'This product has been successfully removed from the shopping cart'
+            }})
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = {
