@@ -6,6 +6,8 @@ async function showProductInCart(products, next) {
       try {
         const Product = await ProductModel.findOne({_id: product.productID})
         if (Product) {
+            Product.count = product.count
+            Product.feature.colors = product.colors
             Products.push(Product);
         }
       } catch (error) {

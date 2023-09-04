@@ -8,7 +8,6 @@ const Error = require("http-errors");
 const { stringToArray } = require('../http/middleware/stringToArray');
 const path = require('path');
 const { ProductModel } = require('../models/product');
-const { Promise } = require('mongoose');
 
 
 

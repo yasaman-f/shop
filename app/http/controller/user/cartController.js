@@ -1,10 +1,10 @@
 const { StatusCodes: HttpStatus } = require('http-status-codes')
 const Error = require('http-errors')
 const Controller = require('../Controller')
-const { cartSchema } = require('../../validator/user/cart')
+const { cartSchema, editSchema } = require('../../validator/user/cart')
 const { ProductModel } = require('../../../models/product')
 const { CartModel } = require('../../../models/cart')
-const { checkColor } = require('../../../utils/function')
+const { checkColor, RemoveExcessData } = require('../../../utils/function')
 const { stringToArray } = require('../../middleware/stringToArray')
 const { showProductInCart } = require('../../middleware/showProduct')
 
@@ -58,6 +58,37 @@ class CartController extends Controller {
         }
     } catch (error) {
         next(error)
+    }
+  }
+  async editCart (req, res, next) {
+    try {
+      await editSchema.validateAsync(req.body)
+      const { id } = req.params
+      let {count, colors} = req.body
+      const cart = await CartModel.findOne({_id: id})
+      const product = await ProductModel.findOne({ _id: cart.productID })
+      let Product = JSON.parse(JSON.stringify(product))
+      count = parseInt(count)
+      if (Product.count < count) {
+        throw Error.BadRequest(
+          `We only have ${Product.count} of this product available, the selected number is more than our inventory`
+        )
+      } else {
+        Product.count = count
+      }
+      colors = stringToArray(colors)
+      Product.colors = checkColor(colors, Product.feature.colors)
+      Product = RemoveExcessData(Product)
+      console.log(Product);
+      const update = await CartModel.updateOne({_id: id}, {$set: Product})
+      if (!update.modifiedCount) throw Error.InternalServerError("Failed to update shopping cart")
+      return res.status(HttpStatus.OK).json({
+        StatusCode: HttpStatus.OK,
+        data: {
+          message: 'The cart was update successfully'
+        }})
+    } catch (error) {
+      next(error)
     }
   }
 }

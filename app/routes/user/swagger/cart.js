@@ -42,6 +42,20 @@
 
 /**
  * @swagger
+ *  components:
+ *      schemas:
+ *          EditCart:
+ *              type: object
+ *              properties:
+ *                  count:
+ *                      type: number
+ *                      description: the count of product for cart
+ *                  colors:
+ *                      $ref: '#/components/schemas/Color'
+ */
+
+/**
+ * @swagger
  *  /basket/add:
  *      post:
  *          tags: [Cart]
@@ -78,4 +92,31 @@
  *          responses:
  *              200:
  *                  description: success
+ */
+
+/**
+ * @swagger
+ *  /basket/edit/{id}:
+ *      patch:
+ *          tags: [Cart]
+ *          summary: edit product in cart
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: id
+ *                  type: string
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/EditCart'
+ *          
+ *          responses:
+ *              200:
+ *                  description:  edit product in cart
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/EditCart'
  */

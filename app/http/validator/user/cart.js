@@ -8,6 +8,13 @@ const cartSchema = joi.object({
     colors: joi.string().error(Error.BadRequest("The color is incorrect")),
 })
 
+
+const editSchema = joi.object({
+    count: joi.number().error(Error.BadRequest("The count is incorrect")),
+    colors: joi.string().error(Error.BadRequest("The color is incorrect")),
+})
+
 module.exports = {
-    cartSchema
+    cartSchema,
+    editSchema
 }
