@@ -6,7 +6,7 @@ const { ProductModel } = require('../../../models/product')
 const { CartModel } = require('../../../models/cart')
 const { checkColor, RemoveExcessData } = require('../../../utils/function')
 const { stringToArray } = require('../../middleware/stringToArray')
-const { showProductInCart } = require('../../middleware/showProduct')
+const { showProductInCart, showFactureInCart } = require('../../middleware/showProduct')
 
 class CartController extends Controller {
   async addCart (req, res, next) {
@@ -49,10 +49,12 @@ class CartController extends Controller {
             throw Error.NotFound("Your shopping cart is empty")
         } else{
             const products = await showProductInCart(product)
+            const facture = await showFactureInCart(product)
             res.status(HttpStatus.OK).json({
                 statusCode: HttpStatus.OK,
                 data: {
-                    products
+                    products,
+                    facture
                 }
             })
         }
