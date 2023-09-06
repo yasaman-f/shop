@@ -49,7 +49,7 @@ module.exports = class Aplication{
                         
                     },
                     {
-                        url: "https://pedantic-lalande-unpa9mkfy.iran.liara.run"
+                        url: "https://myonlywebsite.iran.liara.run"
                     }
                 ],
             components : {
