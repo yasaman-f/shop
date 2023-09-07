@@ -30,5 +30,12 @@
  * @swagger
  *  tags:
  *      name : Cart
- *      description : This part is for adding, editing, geting, removing products from the shopping cart
+ *      description : This part is for adding, editing, getting, removing products from the shopping cart
+ */
+
+/**
+ * @swagger
+ *  tags:
+ *      name : Comment
+ *      description : This part is for adding, editing, getting, removing comment from a product
  */

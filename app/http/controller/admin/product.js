@@ -61,7 +61,7 @@ class ProductController extends Controller {
       const { search } = req.query
       const dataBase = {}
       if (search) dataBase['$text'] = { $search: search }
-      const product = await ProductModel.find(dataBase)
+      const product = await ProductModel.find(dataBase).populate([{ path: "comments", select: { show: 0, isParent: 0 } }])
       return res.status(HttpStatus.OK).json({
         StatusCode: HttpStatus.OK,
         data: {

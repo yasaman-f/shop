@@ -1,30 +1,35 @@
 const mongoose = require("mongoose");
 
 const AnswerSchema = new mongoose.Schema({
-    userID : {type : mongoose.Types.ObjectId, ref: "user", required: true},
-    productID: {type: mongoose.Types.ObjectId, ref: "product", required: true},
+    userID : {type : mongoose.Types.ObjectId, required: true},
+    productID: {type: mongoose.Types.ObjectId, required: true},
     comment: {type: String, required: true},
-    show: {type: Boolean, required: true, default: false},
+    show: {type: Boolean, required: true, default: true},
     parentId: { type: [mongoose.Types.ObjectId], defaut: [] },
-    childrenId: { type: [mongoose.Types.ObjectId], default: [] }
+    answers: { type: [mongoose.Types.ObjectId], default: [] },
 }, {
     timestamps : {createdAt: true}
 })
 
-const CommentSchema = new mongoose.Schema({
-    userID : {type : mongoose.Types.ObjectId, ref: "user", required: true},
-    productID: {type: mongoose.Types.ObjectId, ref: "product", required: true},
+const comment = new mongoose.Schema({
+    userID : {type : mongoose.Types.ObjectId, required: true},
+    productID: {type: mongoose.Types.ObjectId, required: true},
     comment: {type: String, required: true},
-    show: {type: Boolean, required: true, default: false},
+    show: {type: Boolean, required: true, default: true},
     isParent: { type: Boolean },
-    parent: { type: mongoose.Types.ObjectId },
+    parent: {type: mongoose.Types.ObjectId, default: undefined},
     answers : {type: [AnswerSchema], default: []},
 }, {
-    timestamps : {createdAt: true}
+    timestamps : {createdAt: true},
+    __v: false
 })
 
+
+const CommentModel = mongoose.model('comment', comment)
+
+
 module.exports = {
-    CommentSchema
+    CommentModel
 }
 
 	

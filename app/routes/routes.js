@@ -1,3 +1,4 @@
+const { CommentRoutes } = require("./admin/comment.routes")
 const { GroupRoutes } = require("./admin/group.routes")
 const { ProductRoutes } = require("./admin/product.routes")
 const { HomeRoutes } = require("./api/indes")
@@ -11,6 +12,7 @@ router.use("/user", UserRoutes)
 router.use("/group", GroupRoutes)
 router.use("/product", ProductRoutes)
 router.use("/basket", CartRoutes)
+router.use("/comment", CommentRoutes)
 
 module.exports = {
     AllRoutes: router
