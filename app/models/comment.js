@@ -8,7 +8,9 @@ const AnswerSchema = new mongoose.Schema({
     parentId: { type: [mongoose.Types.ObjectId], defaut: [] },
     answers: { type: [mongoose.Types.ObjectId], default: [] },
 }, {
-    timestamps : {createdAt: true}
+    timestamps : {
+        createdAt: true
+    }
 })
 
 const comment = new mongoose.Schema({
@@ -16,11 +18,12 @@ const comment = new mongoose.Schema({
     productID: {type: mongoose.Types.ObjectId, required: true},
     comment: {type: String, required: true},
     show: {type: Boolean, required: true, default: true},
-    isParent: { type: Boolean },
-    parent: {type: mongoose.Types.ObjectId, default: undefined},
+    isParent: {type: Boolean},
     answers : {type: [AnswerSchema], default: []},
 }, {
-    timestamps : {createdAt: true},
+    timestamps: {
+        createdAt: true
+    },
     __v: false
 })
 

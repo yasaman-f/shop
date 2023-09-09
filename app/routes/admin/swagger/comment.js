@@ -10,18 +10,18 @@
  *                  comment:
  *                      type: string
  *                      description: the comment for product
- *          AddAnswer:
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          EditComment:
  *              type: object
- *              required:
- *                  -   comment
- *                  -   commentID
  *              properties:
  *                  comment:
  *                      type: string
  *                      description: the comment for product
- *                  commentID:
- *                      type: string
- *                      description: the commentID for answer ago comment
  */
 
 /**
@@ -59,26 +59,32 @@
 
 /**
  * @swagger
- *  /comment/add-answer/{productID}:
- *      post:
+ *  /comment/edit/{commentID}:
+ *      patch:
  *          tags: [Comment]
- *          summary: add answer to comment
+ *          summary: edit comment
  *          consumes: 
  *              -   multipart/form-data
  *          parameters:
  *              -   in: path
  *                  required: true
- *                  name: productID
+ *                  name: commentID
  *                  type: string
+ *              -   in: query
+ *                  required: false
+ *                  name: show
+ *                  schema:
+ *                    type: boolean
+ *                    default: true
  *          requestBody:
  *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/AddAnswer'
+ *                          $ref: '#/components/schemas/EditComment'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/AddAnswer'
+ *                          $ref: '#/components/schemas/EditComment'
  *          responses:
  *              201: 
  *                  description: Success
@@ -89,5 +95,3 @@
  *              500: 
  *                  description: Internal Server Error 
  */
-
-

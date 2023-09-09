@@ -188,7 +188,7 @@
 
 /**
  * @swagger
- *  /product/{uploader}:
+ *  /product/getByUser/{uploader}:
  *      get:
  *          tags: [Product]
  *          summary: get products by uploader
@@ -204,7 +204,7 @@
 
 /**
  * @swagger
- *  /product/{group}:
+ *  /product/getByGroup/{group}:
  *      get:
  *          tags: [Product]
  *          summary: get products by group

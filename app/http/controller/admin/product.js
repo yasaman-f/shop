@@ -1,4 +1,6 @@
 const { StatusCodes: HttpStatus } = require('http-status-codes')
+const mongoose = require("mongoose")
+const ObjectId = mongoose.Types.ObjectId
 const Error = require('http-errors')
 const path = require('path')
 const Controller = require('../Controller')
@@ -61,7 +63,7 @@ class ProductController extends Controller {
       const { search } = req.query
       const dataBase = {}
       if (search) dataBase['$text'] = { $search: search }
-      const product = await ProductModel.find(dataBase).populate([{ path: "comments", select: { show: 0, isParent: 0 } }])
+      const product = await ProductModel.find(dataBase)
       return res.status(HttpStatus.OK).json({
         StatusCode: HttpStatus.OK,
         data: {
@@ -75,13 +77,35 @@ class ProductController extends Controller {
   async getProductById (req, res, next){
     try {
         const {id} = req.params
+        const objectId = new ObjectId(id)
+        console.log(objectId);
         await findById.validateAsync({id})
-        const find = await ProductModel.findById(id)
-        if(!find) throw Error.NotFound("No product found")
+        const product = await ProductModel.aggregate([
+        {
+          $match: {_id: {objectId}}
+        },
+        {
+            $lookup: {
+              from: "comment",
+              foreignField: "_id",
+              localField: "comments",
+              as: "comments"
+            }
+        },
+        {
+          $unwind: "$comments"
+        },
+        {
+          $project: {
+              "comments.__v": 0,
+          }
+      }
+        ])
+        if(!product) throw Error.NotFound("No product found")
         return res.status(HttpStatus.OK).json({
             StatusCode: HttpStatus.OK,
             data: {
-              find
+              product
             }})
     } catch (error) {
         next(error)
@@ -91,7 +115,7 @@ class ProductController extends Controller {
     try {
         const {uploader} = req.params
         await findByUserId.validateAsync({uploader})
-        const find = await ProductModel.find({uploader})
+        const find = await ProductModel.find({uploader: uploader})
         if(!find) throw Error.NotFound("No product found")
         return res.status(HttpStatus.OK).json({
             StatusCode: HttpStatus.OK,

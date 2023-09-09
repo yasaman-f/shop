@@ -4,7 +4,7 @@ const { verifyToken } = require("../../http/middleware/verifyAccess")
 const router = require("express").Router()
 
 router.post("/add/:productID", verifyToken, CommentController.addComment)
-router.post("/add-answer/:productID", verifyToken, CommentController.addAnswerComment)
+router.patch("/edit/:commentID", verifyToken, CommentController.editComment)
 
 module.exports = {
     CommentRoutes: router

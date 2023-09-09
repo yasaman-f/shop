@@ -16,9 +16,6 @@ class CommentController extends Controller {
         const { comment } = req.body
         const Comment = await CommentModel.create({ userID, productID, comment })
         if (!Comment) throw Error.InternalServerError("Your comment was not registered")
-        const product = await ProductModel.findOne({_id: productID})
-        product.comments = Comment
-        const productUpdate = await ProductModel.updateOne({_id: productID}, {$push: {comments: Comment}})
         return res.status(HttpStatus.CREATED).json({
             StatusCode: HttpStatus.CREATED,
             data: {
@@ -29,51 +26,34 @@ class CommentController extends Controller {
         next(error)
     }
   }
-  async addAnswerComment(req, res , next){
-    try {
-        await AnswerSchema.validateAsync(req.body)
-        const userID = req.user._id
-        const {  productID } = req.params
-        const { commentID, comment } = req.body
-        const commentOrg = await CommentModel.findById({_id: commentID})
-        const ProductUpdate = await ProductModel.updateOne({_id: productID}, {$pull: {commentID}})
-        
-        let Comment = {}
-        Comment.userID = userID.toString()
-        Comment.productID = productID 
-        Comment.parentId = commentID
+  async editComment (req, res, next) {
+    const {commentID} = req.params
+    const { comment } = req.body
+    const { show } = req.query
+    const Comment = await CommentModel.findById({_id: commentID})
+    if(!Comment) throw Error.NotFound("The desired comment was not found")
+    if(Comment.answers){
+        Comment.isParent = true
+    }
+    const extraData = ["", " ", 0, -1, NaN, undefined, null, "empty", "nothing"]
+    if(!extraData.includes(comment)){
         Comment.comment = comment
-        Comment = [Comment]
-        const answer = await CommentModel.updateOne({_id: commentID}, {$push: {answers: Comment} })
-        commentOrg.answers = Comment
-        if(!answer.modifiedCount) throw Error.InternalServerError("Your comment was not registered")
-        return res.status(HttpStatus.CREATED).json({
-            StatusCode: HttpStatus.CREATED,
-            data: {
-                message: "Your comment was registered"
-            }
-        })
-
-    } catch (error) {
-        next(error)
     }
-  }
-  async editCommentByProductID (req, res, next){
-    try {
-        const {  productID } = req.params
-
-        return res.status(HttpStatus.OK).json({
-            StatusCode: HttpStatus.OK,
-            data: {
-                message: ""
-            }
-        })
-    } catch (error) {
-        next(error)
+    if(show == 'false'){
+        const Delete = await CommentModel.deleteOne({_id: commentID})
+        if (!Delete.deletedCount) throw Error.InternalServerError("The selected comment was not deleted")
+    }else{
+        const updateComment = await CommentModel.updateOne({_id: commentID}, {$set: Comment})
+        if(!updateComment.modifiedCount) throw Error.InternalServerError("The selected comment was not updated")
     }
+    return res.status(HttpStatus.OK).json({
+        statusCode: HttpStatus.OK,
+        data: {
+            message: "The selected comment was updated"
+        }
+    })
   }
 }
-
 module.exports = {
     CommentController: new CommentController()
 }
