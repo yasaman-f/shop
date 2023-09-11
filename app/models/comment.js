@@ -29,10 +29,12 @@ const comment = new mongoose.Schema({
 
 
 const CommentModel = mongoose.model('comment', comment)
+const AnswerModel = mongoose.model('answer', AnswerSchema)
 
 
 module.exports = {
-    CommentModel
+    CommentModel,
+    AnswerModel
 }
 
 	

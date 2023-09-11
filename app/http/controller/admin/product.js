@@ -82,18 +82,15 @@ class ProductController extends Controller {
         await findById.validateAsync({id})
         const product = await ProductModel.aggregate([
         {
-          $match: {_id: {objectId}}
+          $match: {_id: objectId}
         },
         {
             $lookup: {
-              from: "comment",
-              foreignField: "_id",
-              localField: "comments",
+              from: "comments",
+              foreignField: "productID",
+              localField: "_id",
               as: "comments"
             }
-        },
-        {
-          $unwind: "$comments"
         },
         {
           $project: {

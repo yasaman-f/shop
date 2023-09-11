@@ -37,5 +37,12 @@
  * @swagger
  *  tags:
  *      name : Comment
- *      description : This part is for adding, editing, getting, removing comment from a product
+ *      description : This part is for adding, editing comment from a product
+ */
+
+/**
+ * @swagger
+ *  tags:
+ *      name : Answer-Comment
+ *      description : This part is for adding, editing reply comment
  */
