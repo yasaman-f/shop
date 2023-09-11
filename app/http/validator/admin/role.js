@@ -8,12 +8,12 @@ const roleSchema = joi.object({
 })
 
 const addRoleSchema = joi.object({
-    role: joi.string().min(3).max(10).error(Error.BadRequest("The role is incorrect")),
-    permission: joi.string().min(10).error(Error.BadRequest("The permission is incorrect")),
+    roleID: joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i).error(Error.BadRequest("The roleID is incorrect")),
     userID: joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i).error(Error.BadRequest("The userID is incorrect")),
 })
 
 
 module.exports = {
-    roleSchema
+    roleSchema,
+    addRoleSchema
 }

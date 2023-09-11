@@ -8,6 +8,7 @@ const error = require("http-errors")
 const swaggerJSDoc = require("swagger-jsdoc")
 const cors = require("cors")
 require("dotenv").config()
+const cooki = require("cookie-parser")
 
 module.exports = class Aplication{
     #app = express()
@@ -28,6 +29,7 @@ module.exports = class Aplication{
         this.#app.use(morgan("dev"))
         this.#app.use(express.json())
         this.#app.use(express.urlencoded({ extended: true }))
+        this.#app.use(cooki())
         this.#app.use(express.static(path.join(__dirname, "..", "public")))
         this.#app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc({
             swaggerDefinition: {

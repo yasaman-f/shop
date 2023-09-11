@@ -14,6 +14,7 @@ const {
   forgetPasswordSchema,
   checkOtpSchema
 } = require('../../validator/user/loginSchema')
+const cooki = require("cookie-parser")
 const { StatusCodes: HttpStatus } = require('http-status-codes')
 const Error = require('http-errors')
 const Controller = require('../Controller')
@@ -123,6 +124,8 @@ class UserAuthController extends Controller {
         const user = await UserModel.findOne({mobile})
         const access = await AccessToken(user._id)
         const refresh = await RefreshToken(user._id)
+        res.cookie('Access-Token', access, {maxAge: 86400000 })
+        res.cookie('Refresh-Token', refresh, {maxAge: 86400000 })
         return res.json({
             statusCode: HttpStatus.OK,
             data: {

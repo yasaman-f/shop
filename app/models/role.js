@@ -9,7 +9,7 @@ const role = new mongoose.Schema(
   }
 )
 
-product.index({
+role.index({
     role: 'text',
 })
 

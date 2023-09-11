@@ -46,3 +46,10 @@
  *      name : Answer-Comment
  *      description : This part is for adding, editing reply comment
  */
+
+/**
+ * @swagger
+ *  tags:
+ *      name : Role
+ *      description : This part is for adding, getting, editing, removing Role for users
+ */

@@ -4,15 +4,17 @@ const { UserModel } = require("../../models/user")
 const { SECRET_KEY } = require("../../../note")
 
 function getToken(params) {
-    const [bearer, token] = params?.authorization.split(" ") || []
+    const [bearer, token] = params?.split(" ") || []
     if(["Bearer", "bearer" && token].includes(bearer)) return token
     throw Error.Unauthorized("User panel not found. Please signUp/Login")
 }
 
 function verifyToken(req, res, next){
     try{ 
-    if (req.headers.authorization == undefined) throw Error.BadRequest("Please login/signUp first")
-    const token = getToken(req.headers)
+    // if (req.headers.authorization == undefined) throw Error.BadRequest("Please login/signUp first")
+    const cooki = "Bearer " + req.cookies["Access-Token"]
+    // const token = getToken(req.headers)
+    const token = getToken(cooki)
     jwt.verify(token, SECRET_KEY, async (err, payload) => {
     try{
             if(err) throw Error.Unauthorized("Please login ...!")
