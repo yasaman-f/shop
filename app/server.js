@@ -1,6 +1,5 @@
 const express = require("express")
 const swaggerUi = require('swagger-ui-express')
-const swaggerJs = require('swagger-jsdoc')
 const { default: mongoose } = require("mongoose")
 const path = require("path")
 const { AllRoutes } = require("./routes/routes")
@@ -40,7 +39,7 @@ module.exports = class Aplication{
                     contact: {
                         name: "Yasi",
                         email: "yasi.fani.85@gmail.com",
-                        url: "https://freerealapi.com"
+                        url: "https://t.me/yasaman_Fn"
                     }
                 },
                 servers: [
