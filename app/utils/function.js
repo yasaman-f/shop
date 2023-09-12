@@ -109,6 +109,7 @@ function verifyRefreshToken(token) {
 function RemoveExcessData(data, fixedData = []){
     let emptyData = [{}, [], "", " ", "0", 0, null, undefined]
     Object.keys(data).forEach(key => {
+        console.log(data[key]);
         if (fixedData.includes(key)) delete data[key]
         if (key == {}) delete data[key]
         if (typeof data[key] == "string") data[key] = data[key].trim();
@@ -144,10 +145,10 @@ function setFeture(body) {
             colors = stringToArray(colors);
             feature.colors = colors
         }
-        if (+width) feature.width = +width;
-        if (+height) feature.height = +height;
-        if (+length) feature.length = +length;
-        if (+weight) feature.weight = +weight;
+        if (+width != '') feature.width = +width;
+        if (+height != '') feature.height = +height;
+        if (+length != '') feature.length = +length;
+        if (+weight != '') feature.weight = +weight;
         return feature
     }
 }
@@ -164,6 +165,21 @@ function checkColor(colors, listOfColor) {
     return Color
 }
 
+function editRoleInUser(role, newRole) {
+    if(!(newRole == "")){
+    const users = role.users
+    users?.forEach( async user => {
+        const findUser = await UserModel.updateOne({_id: user}, {$set: {roles: [newRole]}})
+    })}
+}
+
+function removeRoleInUser(role) {
+    const users = role.users
+    users.forEach( async user => {
+        const findUser = await UserModel.updateOne({_id: user}, {$set: {roles: []}})
+    })
+}
+
 module.exports = {
     hashPassword,
     verifyPassword,
@@ -176,4 +192,6 @@ module.exports = {
     putArrayOfImage,
     setFeture,
     checkColor,
+    editRoleInUser,
+    removeRoleInUser
 }

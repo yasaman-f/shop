@@ -33,6 +33,10 @@
  *                  -   price
  *                  -   discount
  *                  -   count
+ *                  -   height
+ *                  -   weight
+ *                  -   width
+ *                  -   length
  *              properties:
  *                  title:
  *                      type: string
@@ -87,6 +91,11 @@
  *      schemas:
  *          Edit-Product:
  *              type: object
+ *              required:
+ *                  -   height
+ *                  -   weight
+ *                  -   width
+ *                  -   length
  *              properties:
  *                  title:
  *                      type: string

@@ -10,7 +10,7 @@ const cartSchema = joi.object({
 
 
 const editSchema = joi.object({
-    count: joi.number().error(Error.BadRequest("The count is incorrect")),
+    count: joi.number().empty().error(Error.BadRequest("The count is incorrect")),
     colors: joi.string().error(Error.BadRequest("The color is incorrect")),
 })
 

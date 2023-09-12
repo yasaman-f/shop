@@ -18,9 +18,7 @@ class CartController extends Controller {
       const Product = JSON.parse(JSON.stringify(product))
       count = parseInt(count)
       if (Product.count < count) {
-        throw Error.BadRequest(
-          `We only have ${Product.count} of this product available, the selected number is more than our inventory`
-        )
+        return Error.BadRequest(`We only have ${Product.count} of this product available, the selected number is more than our inventory` )
       } else {
         Product.count = count
       }
@@ -29,8 +27,7 @@ class CartController extends Controller {
       Product.userID = userID
       Product.productID = Product._id
       const cart = await CartModel.create(Product)
-      if (!cart)
-        throw Error.InternalServerError('The product was not added to the cart')
+      if (!cart) next(Error.InternalServerError('The product was not added to the cart'))
       return res.status(HttpStatus.CREATED).json({
         statusCode: HttpStatus.CREATED,
         data: {
@@ -50,7 +47,7 @@ class CartController extends Controller {
         } else{
             const products = await showProductInCart(product)
             const facture = await showFactureInCart(product)
-            res.status(HttpStatus.OK).json({
+              return res.status(HttpStatus.OK).json({
                 statusCode: HttpStatus.OK,
                 data: {
                     products,

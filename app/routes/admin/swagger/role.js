@@ -13,7 +13,7 @@
  *                      description: the role for user
  *                  permission:
  *                      type: string
- *                      description: the permission for user
+ *                      description: the permission for role
  *          GiveRole:
  *              type: object
  *              required:
@@ -26,7 +26,16 @@
  *                  userID:
  *                      type: string
  *                      description: the userID for get user
- */
+ *          EditRole:
+ *              type: object
+ *              properties:
+ *                  role:
+ *                      type: string
+ *                      description: the role for user
+ *                  permission:
+ *                      type: string
+ *                      description: the permission for role
+*/
 
 /**
  * @swagger
@@ -85,25 +94,51 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/GiveRole'
+ * 
  *          responses:
  *              200:
  *                  description: success
  */
 
-
-
 /**
  * @swagger
- *  /group/remove/{id}:
- *      delete:
- *          tags: [Grouping-Product]
- *          summary: delete group by id 
+ *  /role/edit/{roleID}:
+ *      patch:
+ *          tags: [Role]
+ *          summary: edit role by id 
  *          consumes: 
  *              -   multipart/form-data
  *          parameters:
  *              -   in: path
  *                  required: true
- *                  name: id
+ *                  name: roleID
+ *                  type: string
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/EditRole'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/EditRole'
+ *          responses:
+ *              200:
+ *                  description: success
+ */
+
+/**
+ * @swagger
+ *  /role/delete/{roleID}:
+ *      delete:
+ *          tags: [Role]
+ *          summary: delete role by id 
+ *          consumes: 
+ *              -   multipart/form-data
+ *          parameters:
+ *              -   in: path
+ *                  required: true
+ *                  name: roleID
  *                  type: string
  *          responses:
  *              200:

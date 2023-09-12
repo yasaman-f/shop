@@ -50,7 +50,7 @@ module.exports = class Aplication{
                         
                     },
                     {
-                        url: "https://myonlywebsite.iran.liara.run"
+                        url: "https://nifty-dhawan-rlx-rbjpm.iran.liara.run"
                     }
                 ],
             components : {

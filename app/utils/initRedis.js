@@ -1,5 +1,6 @@
-const redis = require ("redis").createClient()
-// url: "redis://:XWf5tjP2EDE1B22o8M3BD630@billy.iran.liara.ir:30818/0",
+const redis = require ("redis").createClient({
+    url: "redis://:GYco9AP65Z6D3macZmaDnqFk@redis:6379/0"
+})
 
 async function redisConnect(client) {
     await client.connect();

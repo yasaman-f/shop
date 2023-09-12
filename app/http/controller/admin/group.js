@@ -14,7 +14,6 @@ class GroupController extends Controller {
       const group = await GroupModel.findOne({title})
       if (group) throw Error.BadRequest('Grouping already exists')
       const Group = GroupModel.create({ title, description, userID })
-      await this.findGroup(title)
       return res.status(HttpStatus.OK).json({
         StatusCode: HttpStatus.OK,
         data: {
